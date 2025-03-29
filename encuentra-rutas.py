@@ -7,7 +7,7 @@ import matplotlib.pyplot as plt
 with open("datos_transporte.json", "r") as f:
     datos = json.load(f)
 
-# Crear grafo
+# Creamos el grafo
 G = nx.Graph()
 
 # Agregar nodos (estaciones)
@@ -37,12 +37,12 @@ def encontrar_ruta(origen, destino, criterio):
 df_estaciones = pd.DataFrame(datos["estaciones"])
 df_rutas = pd.DataFrame(datos["rutas"])
     
-print("\nDataFrame de Estaciones:\n", df_estaciones)
-print("\nDataFrame de Rutas:\n", df_rutas)
+print("\nEstaciones:\n", df_estaciones)
+print("\nRutas:\n", df_rutas)
     
 # Interacción con el usuario
 origen = input("\nIngrese el punto de origen: ").upper()
-destino = input("Ingrese el punto de destino: ").upper()
+destino = input("\nIngrese el punto de destino: ").upper()
 criterio = input("¿Desea la ruta más económica (costo) o la más corta en tiempo (tiempo)? ").lower()
 
 # Encontrar ruta
@@ -64,9 +64,19 @@ if camino:
     nombres = nx.get_node_attributes(G, "nombre")
 
     # Dibujar nodos y aristas
-    nx.draw_networkx_nodes(G, pos, node_size=700, node_color="skyblue")
+    nx.draw_networkx_nodes(G, pos, node_size=600, node_color="skyblue")
     nx.draw_networkx_edges(G, pos, edge_color="gray")
     nx.draw_networkx_labels(G, pos, labels=nombres, font_size=8)
+    
+     # Anotaciones detalladas en las aristas
+    for u, v, data in G.edges(data=True):
+        peso = data["tiempo"] if criterio == "costo" else data["costo"]
+        unidad = "m" if criterio == "costo" else "$"
+        etiqueta = f"{nombres[u]} -> {nombres[v]}: {peso} {unidad}"
+        x = (pos[u][0] + pos[v][0]) / 2
+        y = (pos[u][1] + pos[v][1]) / 2
+        plt.annotate(etiqueta, xy=(x, y), xytext=(x, y + 0.01), fontsize=7, ha="center")
+
 
     # Anotaciones de tiempo/costo en las aristas
     etiquetas_aristas = nx.get_edge_attributes(G, "tiempo" if criterio == "tiempo" else "costo")

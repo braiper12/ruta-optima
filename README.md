@@ -1,9 +1,6 @@
 ## **Sistema Inteligente de Rutas de Transporte Masivo**
 
 ### **Actividad #3**
-**Grupo:**  
-Edwin Andres Legro Agudelo  
-
 **Curso** Inteligencia Artificial       
 **Facultad** Ingenieria De Software    
 **Universidad Iberoamercicana**     
@@ -12,6 +9,15 @@ Edwin Andres Legro Agudelo
 ### Introducción
 
 Se desarrolla un Script en Python, que a partir de una base de conocimiento de rutas de transporte masivo, encuentra la ruta óptima entre dos puntos, considerando criterios de costo o tiempo.   
+
+### Preparación:
+Es necesario el preparar el ambiente de trabajo e instalar las librerias y dependencias necesarias para la actividad. Para lo cual necesario tener instalado anaconda o miniconda. En caso de no tenerlo se puede hacer directamente con el python instalado en el equipo de trabajo, siempre que corresponda a una version 3.10 de python.  
+```bash
+conda create --name ruta-optima python=3.10
+conda activate ruta-optima
+conda install networkx pandas matplotlib -c conda-forge
+```
+
 
 ### Tecnologías utilizadas:
 
@@ -56,10 +62,8 @@ Matplotlib genera graficas optimas para la correcta visualización de los datos.
 ## Pruebas
 Se realizan pruebas para evaluar los resultados al seleccionar dos rutas del trayecto.
 
-* **Resultado 1**  En este caso se valida del punto A al D, en base al costo:  
+**Resultado 1**  En este caso se valida del punto A al D, en base al costo:  
+![alt text](ruta_optima_costo)
 
-![alt text](ruta_optima_costo.png)
-
-* **Resultado 2**  En este caso se valida del punto A al D, en base al tiempo:    
-
-![alt text](ruta_optima_tiempo.png)
+**Resultado 2**  En este caso se valida del punto A al D, en base al tiempo:    
+![alt text](ruta_optima_tiempo)
