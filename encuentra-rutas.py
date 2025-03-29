@@ -101,11 +101,10 @@ class SistemaTransporte:
                 tabla.append([
                     estacion["id"],
                     estacion["nombre"],
-                    estacion.get("tipo", "normal"),
-                    ", ".join(estacion.get("servicios", []))
+                    estacion.get("tipo", "normal")
                 ])
             
-            headers = ["ID", "Nombre", "Tipo", "Servicios"]
+            headers = ["ID", "Nombre", "Tipo"]
             print(tabulate(tabla, headers=headers, tablefmt="pretty"))
             return True
         return False
@@ -124,13 +123,10 @@ class SistemaTransporte:
                     ruta["destino"],
                     f"{origen_nombre} → {destino_nombre}",
                     ruta["tiempo"],
-                    ruta["costo"],
-                    ruta.get("distancia", "N/A"),
-                    ruta.get("medio", "bus"),
-                    ruta.get("frecuencia", 15)
+                    ruta["costo"]
                 ])
             
-            headers = ["Origen", "Destino", "Ruta", "Tiempo (min)", "Costo ($)", "Distancia (km)", "Medio", "Frecuencia (min)"]
+            headers = ["Origen", "Destino", "Ruta", "Tiempo (min)", "Costo ($)"]
             print(tabulate(tabla, headers=headers, tablefmt="pretty"))
             return True
         return False
@@ -176,16 +172,6 @@ class SistemaTransporte:
         elif criterio == "tiempo":
             weight = "tiempo"
             etiqueta_valor = "Tiempo total (min)"
-        elif criterio == "distancia":
-            weight = "distancia"
-            etiqueta_valor = "Distancia total (km)"
-        elif criterio == "combinado":
-            # Crear peso combinado (personalizable según necesidades)
-            for u, v, d in self.G.edges(data=True):
-                # Ejemplo: 0.5*tiempo + 0.3*costo + 0.2*distancia
-                d["combinado"] = 0.5 * d["tiempo"] + 0.3 * d["costo"] + 0.2 * d.get("distancia", 0)
-            weight = "combinado"
-            etiqueta_valor = "Valor combinado"
         else:
             logger.error(f"Criterio '{criterio}' no válido.")
             return None, None, None, None
@@ -609,7 +595,7 @@ class SistemaTransporte:
                 </style>
             </head>
             <body>
-                <div class="container">
+                <div class="container-fluid">
                     <div class="header">
                         <h1>Informe de Ruta Óptima</h1>
                         <h3>{origen_nombre} a {destino_nombre}</h3>
@@ -630,14 +616,6 @@ class SistemaTransporte:
                             <div class="stat-card bg-success text-white">
                                 <h5>Costo Total</h5>
                                 <h3>${costo_total}</h3>
-                            </div>
-                            <div class="stat-card bg-warning text-white">
-                                <h5>Distancia Total</h5>
-                                <h3>{distancia_total} km</h3>
-                            </div>
-                            <div class="stat-card bg-secondary text-white">
-                                <h5>Velocidad Promedio</h5>
-                                <h3>{velocidad_promedio:.2f} km/h</h3>
                             </div>
                         </div>
                     </div>
