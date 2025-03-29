@@ -6,3 +6,5 @@
 *.tar.xz
 *.tar
 *.rar
+resultados/
+logs/

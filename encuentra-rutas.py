@@ -12,6 +12,7 @@ from tabulate import tabulate
 import logging
 import sys
 from colorama import Fore, Style, init
+import webbrowser
 
 # Inicializar colorama para colores en la terminal
 init()
@@ -21,7 +22,7 @@ logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s',
     handlers=[
-        logging.FileHandler("transporte.log"),
+        logging.FileHandler("logs/transporte.log"),
         logging.StreamHandler(sys.stdout)
     ]
 )
@@ -35,7 +36,8 @@ class SistemaTransporte:
         self.datos = None
         self.df_estaciones = None
         self.df_rutas = None
-        self.directorio_resultados = "resultados_" + datetime.now().strftime("%Y%m%d_%H%M%S")
+        self.directorio_resultados = "resultados" 
+        #self.directorio_resultados = "resultados_" + datetime.now().strftime("%Y%m%d_%H%M%S")
         
         try:
             # Cargar datos desde JSON
@@ -654,7 +656,8 @@ class SistemaTransporte:
             """
             
             # Guardar el informe en un archivo HTML
-            nombre_archivo = f"{self.directorio_resultados}/informe_ruta_{camino[0]}_a_{camino[-1]}_{criterio}.html"
+            # nombre_archivo = f"{self.directorio_resultados}/informe_ruta_{camino[0]}_a_{camino[-1]}_{criterio}.html"
+            nombre_archivo = f"{self.directorio_resultados}/informe_ruta.html"
             with open(nombre_archivo, "w", encoding="utf-8") as f:
                 f.write(html)
             
@@ -674,11 +677,17 @@ if __name__ == "__main__":
     origen = input("Selecciona la estación de origen: ").strip()
     destino = input("Selecciona la estación de destino: ").strip()
     
+    _criterio = input("¿Desea la ruta más económica (costo) o la más corta en tiempo (tiempo)? ").lower()
+    
     # Buscar la ruta óptima según el criterio deseado (por ejemplo, "tiempo")
-    camino, valor, etiqueta, detalles = sistema.encontrar_ruta(origen, destino, criterio="tiempo")
+    camino, valor, etiqueta, detalles = sistema.encontrar_ruta(origen, destino, criterio=_criterio)
     
     if camino:
-        sistema.visualizar_grafo(camino, criterio="tiempo")
-        sistema.generar_informe(camino, valor, etiqueta, detalles, criterio="tiempo")
+        sistema.visualizar_grafo(camino, criterio=_criterio)
+        nombre_archivo = sistema.generar_informe(camino, valor, etiqueta, detalles, criterio=_criterio)
+        
+        ruta_completa = os.path.abspath(nombre_archivo)
+        url = f"file://{ruta_completa}"
+        webbrowser.open(url)
     else:
         print("No se encontró una ruta entre las estaciones seleccionadas.")
