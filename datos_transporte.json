@@ -1,0 +1,80 @@
+{
+    "estaciones": [
+        {
+            "id": "A",
+            "nombre": "Estación Central",
+            "lat": 40.7128,
+            "lon": -74.0060
+        },
+        {
+            "id": "B",
+            "nombre": "Universidad",
+            "lat": 40.7589,
+            "lon": -73.9851
+        },
+        {
+            "id": "C",
+            "nombre": "Parque Central",
+            "lat": 40.7831,
+            "lon": -73.9654
+        },
+        {
+            "id": "D",
+            "nombre": "Zona Industrial",
+            "lat": 40.8000,
+            "lon": -73.9200
+        },
+        {
+            "id": "E",
+            "nombre": "Troncal 112",
+            "lat": 40.7390,
+            "lon": -73.9499
+        }
+    ],
+    "rutas": [
+        {
+            "origen": "A",
+            "destino": "B",
+            "tiempo": 10,
+            "costo": 2.50
+        },
+        {
+            "origen": "B",
+            "destino": "C",
+            "tiempo": 15,
+            "costo": 3.00
+        },
+        {
+            "origen": "C",
+            "destino": "D",
+            "tiempo": 20,
+            "costo": 2.00
+        },
+        {
+            "origen": "A",
+            "destino": "E",
+            "tiempo": 15,
+            "costo": 4.00
+        },
+        {
+            "origen": "E",
+            "destino": "D",
+            "tiempo": 28,
+            "costo": 4.00
+        }
+    ],
+    "reglas": [
+        {
+            "condicion": "hora_punta",
+            "prioridad": "menos_transbordos"
+        },
+        {
+            "condicion": "presupuesto_limitado",
+            "prioridad": "mas_barato"
+        },
+        {
+            "condicion": "llegada_rapida",
+            "prioridad": "menor_tiempo"
+        }
+    ]
+}
