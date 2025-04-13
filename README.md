@@ -1,69 +1,95 @@
-## **Sistema Inteligente de Rutas de Transporte Masivo**
+## **Métodos de aprendizaje supervisado**
 
 ### **Actividad #3**
-**Curso** Inteligencia Artificial       
+**Curso** Inteligencia Artificial      
+**Estudiantes** 
+- Edwin Andres Legro Agudelo (elegroag@estudiante.ibero.edu.co)    
+- Braian Alejandro Perez Castillo (baperezc@estudiante.ibero.edu.co)    
+
 **Facultad** Ingenieria De Software    
 **Universidad Iberoamercicana**     
+**Sistema Inteligente de Predicción de Rutas de Transporte Masivo**
 
+**DataSet**  
+[Descargar DataSet dataset_transporte_enriquecido.json](./dataset_transporte_enriquecido.json)
 
 ### Introducción
 
-Se desarrolla un Script en Python, que a partir de una base de conocimiento de rutas de transporte masivo, encuentra la ruta óptima entre dos puntos, considerando criterios de costo o tiempo.   
+Se desarrolla un sistema de aprendizaje automático en Python que, utilizando datos históricos de rutas de transporte masivo, predice y analiza patrones de viaje para optimizar la planificación de rutas. El sistema procesa datos enriquecidos de estaciones y rutas históricas para generar insights valiosos sobre el comportamiento del sistema de transporte.
 
-### Preparación:
-Es necesario el preparar el ambiente de trabajo e instalar las librerias y dependencias necesarias para la actividad. Para lo cual necesario tener instalado anaconda o miniconda. En caso de no tenerlo se puede hacer directamente con el python instalado en el equipo de trabajo, siempre que corresponda a una version 3.10 de python.  
+### Preparación
+Es necesario preparar el ambiente de trabajo e instalar las librerías y dependencias necesarias para la actividad. Se puede utilizar anaconda/miniconda o pip con Python 3.10:
+
 ```bash
 conda create --name ruta-optima python=3.10
 conda activate ruta-optima
-conda install networkx pandas matplotlib -c conda-forge
+conda install pandas numpy scikit-learn matplotlib seaborn -c conda-forge
 ```
-
 
 ### Tecnologías utilizadas:
 
 + Python: Lenguaje de programación principal para la implementación del sistema.
-+ JSON: Formato de datos para almacenar la información de las estaciones, rutas y reglas.
-+ NetworkX: Librería de Python para la manipulación y análisis de grafos, utilizada para representar la red de transporte y aplicar el algoritmo de Dijkstra.
-+ Pandas: Librería de Python para el análisis y manipulación de datos, utilizada para estructurar y presentar los resultados en DataFrames.
-+ Matplotlib: Librería de Python para la visualización de datos, utilizada para representar gráficamente la red de transporte y la ruta óptima.
-
-El uso de NetworkX permite una implementación eficiente del algoritmo de Dijkstra.  
-Pandas facilita el análisis y la presentación de los resultados.    
-Matplotlib genera graficas optimas para la correcta visualización de los datos.     
++ JSON: Formato de datos para almacenar la información histórica de rutas y estaciones.
++ Pandas: Librería principal para el análisis y manipulación de datos, utilizada para procesar los datasets de rutas y estaciones.
++ NumPy: Biblioteca para computación científica y manipulación de arrays.
++ Scikit-learn: Framework de machine learning para el análisis predictivo.
++ Matplotlib/Seaborn: Librerías para la visualización de datos y resultados del análisis.
++ RandomForestRegressor: Algoritmo de machine learning para la predicción de tiempo de viaje.
++ OneHotEncoder: Algoritmo de machine learning para la codificación de variables categóricas.
++ ColumnTransformer: Algoritmo de machine learning para la transformación de variables.
++ Pipeline: Algoritmo de machine learning para la creación de pipelines de machine learning.
++ GridSearchCV: Algoritmo de machine learning para la búsqueda de hiperparámetros.
++ train_test_split: Algoritmo de machine learning para la división de datos.
++ mean_squared_error: Algoritmo de machine learning para el cálculo del error cuadrático medio.
++ r2_score: Algoritmo de machine learning para el cálculo del coeficiente de determinación.
++ mean_absolute_error: Algoritmo de machine learning para el cálculo del error absoluto medio.
++ StandardScaler: Algoritmo de machine learning para la normalización de variables.
 
 ### Implementación:
 
-1.  Carga de datos JSON:
-    + Se utiliza la librería json para cargar los datos de las estaciones, rutas y reglas desde un archivo JSON.   
-   
-2.  Creación del grafo con NetworkX:
-    + Se crea un grafo dirigido utilizando networkx.DiGraph() para representar la red de transporte.
-    + Los nodos del grafo representan las estaciones, y las aristas representan las rutas entre las estaciones.
-    + Se asignan atributos a los nodos (nombre, coordenadas) y aristas (tiempo, costo).     
-  
-3.  Implementación del algoritmo de Dijkstra:
-    + Se utiliza la función nx.shortest_path() de NetworkX para encontrar el camino más corto entre dos estaciones.
-    + El algoritmo de Dijkstra se aplica considerando el costo o el tiempo como peso de las aristas, según la elección del usuario.     
-  
-4.  Análisis de datos con Pandas:
-    + Se crean DataFrames de Pandas para estructurar y presentar los resultados del algoritmo de Dijkstra.
-    + Se generan DataFrames para las estaciones, rutas, camino óptimo y resumen del camino.  
-     
-5.  Visualización con Matplotlib:
-    + Se utiliza matplotlib.pyplot para visualizar la red de transporte y el camino óptimo.
-    + Se dibujan los nodos, aristas y etiquetas del grafo.
-    + Se resaltan las aristas que forman el camino óptimo.
-    + Se crean anotaciones sobre el tiempo o precio que toma cada ruta.     
+1. Carga y Preprocesamiento de Datos:
+   + Lectura de datos JSON enriquecidos con información histórica
+   + Transformación de datos a DataFrames de Pandas para su análisis
+   + Limpieza y preparación de datos para el modelado
 
-6.  Interacción con el usuario:
-    + Se solicita al usuario que ingrese el origen, el destino y el criterio de la ruta.
-    + Se muestran los resultados en forma de DataFrames y en una visualización gráfica.
+2. Análisis Exploratorio de Datos (EDA):
+   + Análisis estadístico de patrones de viaje
+   + Visualización de distribuciones y correlaciones
+   + Identificación de tendencias y anomalías
 
-## Pruebas
-Se realizan pruebas para evaluar los resultados al seleccionar dos rutas del trayecto.
+3. Modelado y Predicción:
+   + Selección y entrenamiento de modelos de machine learning
+   + Validación y evaluación de resultados
+   + Ajuste de hiperparámetros para optimización
 
-**Resultado 1**  En este caso se valida del punto A al D, en base al costo:  
-![alt text](ruta_optima_costo)
+4. Visualización de Resultados:
+   + Generación de gráficas y visualizaciones interactivas
+   + Presentación de métricas de rendimiento
+   + Interpretación de predicciones y patrones descubiertos
 
-**Resultado 2**  En este caso se valida del punto A al D, en base al tiempo:    
-![alt text](ruta_optima_tiempo)
+### Estructura de Datos
+
+El sistema trabaja con dos conjuntos principales de datos:
+
+1. Rutas Históricas:
+   + Información temporal de viajes
+   + Métricas de utilización
+   + Patrones de demanda
+
+2. Estaciones:
+   + Ubicación y características
+   + Capacidad y servicios
+   + Métricas operativas
+
+## Resultados
+
+El análisis de los datos ha permitido:
+
+1. Identificar patrones de uso del sistema de transporte
+2. Predecir demanda en diferentes horarios y rutas
+3. Optimizar la planificación de recursos
+
+### Visualizaciones
+
+**Resultados del Modelo**  
+![Predicciones](resultados_modelo)
